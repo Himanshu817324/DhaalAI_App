@@ -19,12 +19,17 @@ export default StyleSheet.create({
     width: 300,
     height: 300,
   },
+  image: {
+    width: '80%',
+    height: 250,
+    marginBottom: 30,
+  },
   title: {
     fontSize: 28,
     fontWeight: '800',
     color: '#fff',
     marginTop: 20,
-    fontFamily: 'Poppins-Bold', // Add custom font if desired
+    fontFamily: 'Poppins-Bold',
   },
   description: {
     fontSize: 16,

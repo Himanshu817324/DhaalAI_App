@@ -1,9 +1,7 @@
-// src/screens/onboarding/Onboarding.tsx
 import React, { useRef } from 'react';
-import { View, Text, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Text, Dimensions, TouchableOpacity, Image } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import LottieView from 'lottie-react-native';
 import styles from '../../styles/onboardingStyles';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -11,28 +9,29 @@ import type { RootStackParamList } from '../../types/navigation';
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
 
+type NavProp = NativeStackNavigationProp<RootStackParamList>;
+
 const onboardingData = [
   {
     title: 'Cybersecurity Protection',
     desc: 'Safeguard your digital life with enhanced protection.',
-    animation: require('../../assets/animations/shield.json'),
+    image: require('../../assets/images/onboarding/shield.jpg'),
   },
   {
     title: 'Protection',
     desc: 'Secure your digital footprint with continuous monitoring.',
-    animation: require('../../assets/animations/monitoring.json'),
+    image: require('../../assets/images/onboarding/shield.jpg'),
   },
   {
     title: 'Secure Data Management',
     desc: 'Get instant alerts for potential digital risks.',
-    animation: require('../../assets/animations/data_security.json'),
+    image: require('../../assets/images/onboarding/shield.jpg'),
   },
 ];
 
 const Onboarding = () => {
   const carouselRef = useRef(null);
   const navigation = useNavigation<NavProp>();
-  type NavProp = NativeStackNavigationProp<RootStackParamList>;
 
   const handleFinish = async () => {
     await AsyncStorage.setItem('hasSeenOnboarding', 'true');
@@ -44,7 +43,7 @@ const Onboarding = () => {
 
   const renderItem = ({ item, index }: any) => (
     <View style={styles.slide}>
-      <LottieView source={item.animation} autoPlay loop style={styles.lottie} />
+      <Image source={item.image} style={styles.image} resizeMode="contain" />
       <Text style={styles.title}>{item.title}</Text>
       <Text style={styles.description}>{item.desc}</Text>
       {index === onboardingData.length - 1 && (

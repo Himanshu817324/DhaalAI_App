@@ -1,7 +1,7 @@
 import React from 'react';
-import Navigation from './rootNavigator';
+import Navigation from './navigation/RootNavigator';
 import { Provider } from 'react-redux';
-import { store } from './redux/store';
+import { store } from './store/store';
 
 export default function App() {
   return (
