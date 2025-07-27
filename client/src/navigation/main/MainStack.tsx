@@ -1,17 +1,18 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import TabNavigator from '../../screens/tabs/tabNavigator';
-import EditProfile from '../../screens/common/EditProfile';
-import ClaimDetails from '../../screens/common/ClaimDetails';
+import Tabs from '../../screens/main/tabs/TabNavigator';
+import EditProfile from '../../screens/main/common/EditProfile';
+import Information from '../../screens/main/common/Information';
+import type { MainStackParamList } from '../../types/navigation';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<MainStackParamList>();
 
-export default function MainStack() {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Tabs" component={TabNavigator} />
-      <Stack.Screen name="EditProfile" component={EditProfile} />
-      <Stack.Screen name="ClaimDetails" component={ClaimDetails} />
-    </Stack.Navigator>
-  );
-}
+const MainStack = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="Tabs" component={Tabs} />
+    <Stack.Screen name="EditProfile" component={EditProfile} />
+    <Stack.Screen name="Information" component={Information} />
+  </Stack.Navigator>
+);
+
+export default MainStack;
