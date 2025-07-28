@@ -1,0 +1,110 @@
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
+
+export default StyleSheet.create({
+  backgroundContainer: {
+    flex: 1,
+  },
+  safeArea: {
+    flex: 1,
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingBottom: height * 0.04,
+  },
+  logo: {
+    width: width * 0.7,
+    height: height * 0.28,
+    resizeMode: 'contain',
+    marginTop: height * 0.03,
+  },
+  formContainer: {
+    width: width * 0.9,
+    height: height * 0.5,
+    bottom: height * 0.05,
+    backgroundColor: 'rgba(196, 196, 224, 0.8)',
+    borderRadius: 25,
+    paddingVertical: height * 0.035,
+    paddingHorizontal: width * 0.06,
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: width * 0.05,
+    fontWeight: 'bold',
+    color: '#000',
+    marginBottom: height * 0.02,
+    textDecorationLine: 'underline',
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f0f0f0',
+    borderRadius: 15,
+    paddingHorizontal: width * 0.04,
+    width: '100%',
+    height: height * 0.06,
+    marginBottom: height * 0.02,
+  },
+  input: {
+    flex: 1,
+    color: '#000',
+    fontSize: width * 0.04,
+  },
+  verifyText: {
+    color: '#6a6a6a',
+    fontWeight: 'bold',
+    fontSize: width * 0.035,
+  },
+  orText: {
+    color: '#333',
+    marginVertical: height * 0.01,
+    fontSize: width * 0.035,
+  },
+  socialButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 15,
+    paddingVertical: height * 0.015,
+    paddingHorizontal: width * 0.05,
+    width: '100%',
+    marginBottom: height * 0.015,
+    borderColor: '#ddd',
+    borderWidth: 1,
+  },
+  socialIcon: {
+    width: width * 0.06,
+    height: width * 0.06,
+    marginRight: width * 0.04,
+    resizeMode: 'contain',
+  },
+  socialButtonText: {
+    color: '#000',
+    fontWeight: '600',
+    fontSize: width * 0.04,
+  },
+  submitButton: {
+    position: 'absolute',
+    bottom: height * 0.15,
+    width: width * 0.7,
+    backgroundColor: '#c4c4e0',
+    paddingVertical: height * 0.02,
+    borderRadius: 20,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+    elevation: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.5)',
+  },
+  submitButtonText: {
+    color: '#444',
+    fontSize: width * 0.045,
+    fontWeight: 'bold',
+  },
+});
