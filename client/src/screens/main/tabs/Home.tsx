@@ -1,12 +1,15 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import React from 'react';
+import { SafeAreaView, Text, View } from 'react-native';
+import styles from '../../../styles/home.styles';
 
 const HomeScreen = () => {
   return (
-    <View>
-      <Text>Home</Text>
-    </View>
-  )
-}
+    <SafeAreaView style={styles.safeArea}>
+      <View>
+        <Text>Home Screen</Text>
+      </View>
+    </SafeAreaView>
+  );
+};
 
-export default HomeScreen
+export default HomeScreen;

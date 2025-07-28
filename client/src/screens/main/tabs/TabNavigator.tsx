@@ -8,6 +8,7 @@ import ProfileScreen from '../common/Profile';
 import TabBarIcon from '../../../components/molecules/TabBarIcon';
 import { RouteProp } from '@react-navigation/native';
 import { TabStackParamList } from '../../../types/navigation';
+import styles from '../../../styles/tabNavigator.styles';
 
 const Tab = createBottomTabNavigator<TabStackParamList>();
 
@@ -44,17 +45,8 @@ export default function TabNavigator() {
         headerShown: false,
         tabBarActiveTintColor: '#7F56D9',
         tabBarInactiveTintColor: '#999',
-        tabBarStyle: {
-          backgroundColor: '#0A0A0A',
-          borderTopWidth: 0,
-          height: 70,
-          paddingBottom: 10,
-          paddingTop: 10,
-        },
-        tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: '600',
-        },
+        tabBarStyle: styles.tabBarStyle,
+        tabBarLabelStyle: styles.tabBarLabelStyle,
         tabBarIcon: getTabBarIcon(route),
       })}
     >

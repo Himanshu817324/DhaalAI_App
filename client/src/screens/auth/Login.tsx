@@ -12,6 +12,10 @@ import {
 } from 'react-native';
 
 import styles from '../../styles/login.styles';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../types/navigation';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const imagePaths = {
   background: require('../../assets/images/login/bg.png'),
@@ -19,8 +23,26 @@ const imagePaths = {
   googleIcon: require('../../assets/icons/google.png'),
   facebookIcon: require('../../assets/icons/facebook.png'),
 };
+type NavProp = NativeStackNavigationProp<RootStackParamList>;
 
 export default function LoginScreen() {
+  const navigation = useNavigation<NavProp>();
+
+  const handleSubmit = async () => {
+    try {
+      await AsyncStorage.setItem('hasSeenOnboarding', 'true');
+      navigation.replace('MainStack', {
+        screen: 'Tabs',
+        params: {
+          screen: 'Home',
+          params: undefined,
+        },
+      });
+    } catch (e) {
+      console.error('Failed to save onboarding status.', e);
+      navigation.replace('AuthStack', { screen: 'Login' });
+    }
+  };
   return (
     <ImageBackground
       source={imagePaths.background}
@@ -62,13 +84,16 @@ export default function LoginScreen() {
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.socialButton}>
-              <Image source={imagePaths.facebookIcon} style={styles.socialIcon} />
+              <Image
+                source={imagePaths.facebookIcon}
+                style={styles.socialIcon}
+              />
               <Text style={styles.socialButtonText}>Login With FaceBook</Text>
             </TouchableOpacity>
           </View>
 
           {/* Submit Button */}
-          <TouchableOpacity style={styles.submitButton}>
+          <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
             <Text style={styles.submitButtonText}>Submit</Text>
           </TouchableOpacity>
         </KeyboardAvoidingView>
