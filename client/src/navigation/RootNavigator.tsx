@@ -1,6 +1,7 @@
+// RootNavigator.tsx
 import React, { useEffect, useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Splash from '../screens/Splash';
+import SplashScreen from '../screens/Splash';
 import OnboardingStack from './onboarding/OnboardingStack';
 import AuthStack from './auth/AuthStack';
 import MainStack from './main/MainStack';
@@ -11,30 +12,44 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const RootNavigator = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [hasSeenOnboarding, setHasSeenOnboarding] = useState(false);
+  const [initialRoute, setInitialRoute] = useState<keyof RootStackParamList>('Splash');
 
   useEffect(() => {
-    const checkOnboarding = async () => {
-      const seen = await AsyncStorage.getItem('hasSeenOnboarding');
-      setHasSeenOnboarding(!!seen);
-      setIsLoading(false);
+    const checkInitialRoute = async () => {
+      try {
+        const hasSeenOnboarding = await AsyncStorage.getItem('hasSeenOnboarding');
+        
+        if (!hasSeenOnboarding) {
+          setInitialRoute('OnboardingStack');
+        } else {
+          setInitialRoute('AuthStack');
+        }
+      } catch (error) {
+        console.error('Error checking onboarding status:', error);
+        setInitialRoute('OnboardingStack');
+      } finally {
+        setIsLoading(false);
+      }
     };
-    checkOnboarding();
+
+    checkInitialRoute();
   }, []);
 
-  if (isLoading) return <Splash />;
+  if (isLoading) {
+    return <SplashScreen />;
+  }
 
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {!hasSeenOnboarding ? (
-        <Stack.Screen name="OnboardingStack" component={OnboardingStack} />
-      ) : (
-        <Stack.Screen name="AuthStack" component={AuthStack} />
-      )}
+    <Stack.Navigator 
+      initialRouteName={initialRoute}
+      screenOptions={{ headerShown: false }}
+    >
+      <Stack.Screen name="Splash" component={SplashScreen} />
+      <Stack.Screen name="OnboardingStack" component={OnboardingStack} />
+      <Stack.Screen name="AuthStack" component={AuthStack} />
       <Stack.Screen name="MainStack" component={MainStack} />
     </Stack.Navigator>
   );
 };
-
 
 export default RootNavigator;
