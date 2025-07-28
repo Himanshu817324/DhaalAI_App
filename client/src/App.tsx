@@ -1,12 +1,21 @@
+import 'react-native-gesture-handler';
 import React from 'react';
-import Navigation from './navigation/RootNavigator';
-import { Provider } from 'react-redux';
+import { NavigationContainer } from '@react-navigation/native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Provider as ReduxProvider } from 'react-redux';
 import { store } from './store/store';
+import RootNavigator from './navigation/RootNavigator';
 
-export default function App() {
+const App = () => {
   return (
-    <Provider store={store}>
-      <Navigation />
-    </Provider>
+    <SafeAreaProvider>
+      <ReduxProvider store={store}>
+        <NavigationContainer>
+          <RootNavigator />
+        </NavigationContainer>
+      </ReduxProvider>
+    </SafeAreaProvider>
   );
-}
+};
+
+export default App;

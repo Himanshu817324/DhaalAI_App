@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Splash from '../screens/Splash';
 import OnboardingStack from './onboarding/OnboardingStack';
@@ -26,18 +25,16 @@ const RootNavigator = () => {
   if (isLoading) return <Splash />;
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {hasSeenOnboarding ? (
-          <Stack.Screen name="AuthStack" component={AuthStack} />
-        ) : (
-          <Stack.Screen name="OnboardingStack" component={OnboardingStack} />
-        )}
-        <Stack.Screen name="MainStack" component={MainStack} />
-        <Stack.Screen name="Splash" component={Splash} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      {!hasSeenOnboarding ? (
+        <Stack.Screen name="OnboardingStack" component={OnboardingStack} />
+      ) : (
+        <Stack.Screen name="AuthStack" component={AuthStack} />
+      )}
+      <Stack.Screen name="MainStack" component={MainStack} />
+    </Stack.Navigator>
   );
 };
+
 
 export default RootNavigator;

@@ -8,7 +8,7 @@ import type { AuthStackParamList } from '../../types/navigation';
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 
 const AuthStack = () => (
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
+  <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
     <Stack.Screen name="Login" component={Login} />
     <Stack.Screen name="Register" component={RegisterScreen} />
     <Stack.Screen name="OTP" component={OTPScreen} />

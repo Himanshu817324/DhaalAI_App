@@ -38,16 +38,21 @@ export default StyleSheet.create({
     marginVertical: 15,
     fontFamily: 'Poppins-Regular',
   },
+  buttonContainer: {
+    position: 'absolute', // Position it over the FlatList
+    bottom: 50,           // 50 pixels from the bottom
+    width: '100%',        // Take up the full width to center the button
+    alignItems: 'center', // Center the button horizontally
+  },
   button: {
-    marginTop: 30,
-    backgroundColor: '#2563eb',
-    paddingVertical: 12,
-    paddingHorizontal: 40,
-    borderRadius: 30,
+    backgroundColor: '#007AFF', // Example background color
+    paddingVertical: 15,
+    paddingHorizontal: 50,
+    borderRadius: 25,
   },
   buttonText: {
-    color: '#fff',
+    color: 'white',
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: 'bold',
   },
 });
