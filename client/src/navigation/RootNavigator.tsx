@@ -15,25 +15,29 @@ const RootNavigator = () => {
   const [initialRoute, setInitialRoute] = useState<keyof RootStackParamList>('Splash');
 
   useEffect(() => {
-    const checkInitialRoute = async () => {
-      try {
-        const hasSeenOnboarding = await AsyncStorage.getItem('hasSeenOnboarding');
-        
-        if (!hasSeenOnboarding) {
-          setInitialRoute('OnboardingStack');
-        } else {
-          setInitialRoute('AuthStack');
-        }
-      } catch (error) {
-        console.error('Error checking onboarding status:', error);
-        setInitialRoute('OnboardingStack');
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const checkInitialRoute = async () => {
+    try {
+      const hasSeenOnboarding = await AsyncStorage.getItem('hasSeenOnboarding');
+      const isLoggedIn = await AsyncStorage.getItem('isLoggedIn');
 
-    checkInitialRoute();
-  }, []);
+      if (!hasSeenOnboarding) {
+        setInitialRoute('OnboardingStack');
+      } else if (isLoggedIn === 'true') {
+        setInitialRoute('MainStack');
+      } else {
+        setInitialRoute('AuthStack');
+      }
+    } catch (error) {
+      console.error('Error checking onboarding/login status:', error);
+      setInitialRoute('OnboardingStack');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  checkInitialRoute();
+}, []);
+
 
   if (isLoading) {
     return <SplashScreen />;

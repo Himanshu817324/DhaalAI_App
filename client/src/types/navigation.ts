@@ -15,10 +15,9 @@ export type AuthStackParamList = {
 // -------- Tab Stack (Main Tabs) --------
 export type TabStackParamList = {
   Home: undefined;
-  Insurance: undefined;
-  Claim: undefined;
-  Detect: undefined;
-  Profile: undefined;
+  History: undefined;
+  Share: undefined;
+  Setting: undefined;
 };
 
 // -------- Main Stack --------

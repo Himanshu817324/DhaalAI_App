@@ -21,7 +21,7 @@ const HomeScr = () => {
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.avatar} />
-          <Text style={styles.title}>Dhaal.AI</Text>
+          <Text style={styles.title}>Dhaal.io</Text>
           <View style={styles.icons}>
             <Image source={require('../../../assets/icons/home/bell.png')} style={styles.icon} />
             <Image source={require('../../../assets/icons/home/profile.png')} style={styles.icon} />
@@ -37,8 +37,8 @@ const HomeScr = () => {
         {/* Actions */}
         <Text style={styles.sectionTitle}>Actions</Text>
         <View style={styles.actions}>
-          <ActionButton title="Deep Seek" icon="deepseek.png" />
-          <ActionButton title="Finance" icon="finance.png" />
+          <ActionButton title="DeepFake" icon="deepseek.png" />
+          <ActionButton title="Insuarance" icon="finance.png" />
           <ActionButton title="Scam" icon="scam.png" />
         </View>
 
@@ -66,14 +66,8 @@ const HomeScr = () => {
           </View>
         </View>
 
-        {/* Stories */}
-        <Text style={styles.sectionTitle}>Stories</Text>
-        <View style={styles.storyTabs}>
-          <StoryTab icon="home.png" />
-          <StoryTab icon="clock.png" />
-          <StoryTab icon="share.png" />
-          <StoryTab icon="shield.png" />
-        </View>
+        {/* Setting */}
+        <Text style={styles.sectionTitle}>Setting</Text>
         <View style={styles.storyGrid}>
           <StoryCard title="New Deepfake Scam Alert" time="2h ago" />
           <StoryCard title="Finance Fraud Warning" time="4h ago" />
@@ -101,12 +95,6 @@ const ActionButton = ({ title, icon }: { title: string; icon: string }) => (
   <TouchableOpacity style={styles.actionBtn}>
     <Image source={iconMap[icon]} style={styles.actionIcon} />
     <Text style={styles.actionText}>{title}</Text>
-  </TouchableOpacity>
-);
-
-const StoryTab = ({ icon }: { icon: string }) => (
-  <TouchableOpacity>
-    <Image source={iconMap[icon]} style={styles.storyIcon} />
   </TouchableOpacity>
 );
 

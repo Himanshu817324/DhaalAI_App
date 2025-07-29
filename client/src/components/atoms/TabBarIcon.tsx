@@ -1,6 +1,6 @@
-// components/TabBarIcon.tsx
 import React from 'react';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Image, StyleSheet } from 'react-native';
+import tabIconMap from '../../constants/tabIconMap';
 
 type TabBarIconProps = {
   name: string;
@@ -9,11 +9,21 @@ type TabBarIconProps = {
 };
 
 export default function TabBarIcon({ name, color, focused }: TabBarIconProps) {
+  const iconKey = focused ? name : `${name}-outline`;
+  const iconSource = tabIconMap[iconKey];
+
   return (
-    <Icon
-      name={focused ? name : `${name}-outline`}
-      size={24}
-      color={color}
+    <Image
+      source={iconSource}
+      style={[styles.icon, { tintColor: color }]}
+      resizeMode="contain"
     />
   );
 }
+
+const styles = StyleSheet.create({
+  icon: {
+    width: 24,
+    height: 24,
+  },
+});

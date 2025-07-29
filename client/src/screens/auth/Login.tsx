@@ -29,20 +29,20 @@ export default function LoginScreen() {
   const navigation = useNavigation<NavProp>();
 
   const handleSubmit = async () => {
-    try {
-      await AsyncStorage.setItem('hasSeenOnboarding', 'true');
-      navigation.replace('MainStack', {
-        screen: 'Tabs',
-        params: {
-          screen: 'Home',
-          params: undefined,
-        },
-      });
-    } catch (e) {
-      console.error('Failed to save onboarding status.', e);
-      navigation.replace('AuthStack', { screen: 'Login' });
-    }
-  };
+  try {
+    await AsyncStorage.setItem('hasSeenOnboarding', 'true');
+    await AsyncStorage.setItem('isLoggedIn', 'true');
+
+    navigation.replace('MainStack', {
+      screen: 'Tabs',
+      params: { screen: 'Home', params: undefined },
+    });
+  } catch (e) {
+    console.error('Failed to save login status.', e);
+    navigation.replace('AuthStack', { screen: 'Login' });
+  }
+};
+
   return (
     <ImageBackground
       source={imagePaths.background}
