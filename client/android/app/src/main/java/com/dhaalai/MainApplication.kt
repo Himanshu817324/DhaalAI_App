@@ -1,4 +1,4 @@
-package com.dhaalai
+package com.dhaal
 
 import android.app.Application
 import com.facebook.react.PackageList
