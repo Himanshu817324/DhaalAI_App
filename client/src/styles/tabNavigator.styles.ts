@@ -14,4 +14,8 @@ export default StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
   },
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#0A0A0A',
+  },
 });

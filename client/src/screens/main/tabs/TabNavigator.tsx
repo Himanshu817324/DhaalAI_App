@@ -5,7 +5,7 @@ import InsuranceScreen from './Insurance';
 import ClaimScreen from './Claim';
 import DetectScreen from './Detect';
 import ProfileScreen from '../common/Profile';
-import TabBarIcon from '../../../components/molecules/TabBarIcon';
+import TabBarIcon from '../../../components/atoms/TabBarIcon';
 import { RouteProp } from '@react-navigation/native';
 import { TabStackParamList } from '../../../types/navigation';
 import styles from '../../../styles/tabNavigator.styles';
