@@ -5,7 +5,7 @@ export default function SplashScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>DeepFake Detector</Text>
-      <ActivityIndicator size="large" color="#6200EE" />
+      <ActivityIndicator size="large" color="#FFFFFF" />
     </View>
   );
 }

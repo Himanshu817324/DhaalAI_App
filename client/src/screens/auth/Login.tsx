@@ -9,13 +9,11 @@ import {
   ImageBackground,
   KeyboardAvoidingView,
   Platform,
+  StyleSheet
 } from 'react-native';
-
-import styles from '../../styles/login.styles';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../types/navigation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch } from 'react-redux';
+import { login } from '../../store/slices/authSlice';
 
 const imagePaths = {
   background: require('../../assets/images/login/bg.png'),
@@ -23,25 +21,19 @@ const imagePaths = {
   googleIcon: require('../../assets/icons/google.png'),
   facebookIcon: require('../../assets/icons/facebook.png'),
 };
-type NavProp = NativeStackNavigationProp<RootStackParamList>;
 
 export default function LoginScreen() {
-  const navigation = useNavigation<NavProp>();
+  const dispatch = useDispatch();
 
   const handleSubmit = async () => {
-  try {
-    await AsyncStorage.setItem('hasSeenOnboarding', 'true');
-    await AsyncStorage.setItem('isLoggedIn', 'true');
-
-    navigation.replace('MainStack', {
-      screen: 'Tabs',
-      params: { screen: 'Home', params: undefined },
-    });
-  } catch (e) {
-    console.error('Failed to save login status.', e);
-    navigation.replace('AuthStack', { screen: 'Login' });
-  }
-};
+    try {
+      const user = { name: 'Tushar Singh' }; // Example user data
+      await AsyncStorage.setItem('isLoggedIn', 'true');
+      dispatch(login(user)); // ✅ Dispatch action
+    } catch (e) {
+      console.error('Failed to save login status.', e);
+    }
+  };
 
   return (
     <ImageBackground
@@ -54,14 +46,9 @@ export default function LoginScreen() {
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={styles.container}
         >
-          {/* Top Illustration */}
           <Image source={imagePaths.logo} style={styles.logo} />
-
-          {/* Login Form Container */}
           <View style={styles.formContainer}>
             <Text style={styles.title}>Login With Email</Text>
-
-            {/* Email Input */}
             <View style={styles.inputContainer}>
               <TextInput
                 placeholder="Enter Your Email"
@@ -70,29 +57,13 @@ export default function LoginScreen() {
                 keyboardType="email-address"
                 autoCapitalize="none"
               />
-              <TouchableOpacity>
-                <Text style={styles.verifyText}>Verify</Text>
-              </TouchableOpacity>
             </View>
-
             <Text style={styles.orText}>or</Text>
-
-            {/* Social Logins */}
             <TouchableOpacity style={styles.socialButton}>
               <Image source={imagePaths.googleIcon} style={styles.socialIcon} />
               <Text style={styles.socialButtonText}>Login With Google</Text>
             </TouchableOpacity>
-
-            <TouchableOpacity style={styles.socialButton}>
-              <Image
-                source={imagePaths.facebookIcon}
-                style={styles.socialIcon}
-              />
-              <Text style={styles.socialButtonText}>Login With FaceBook</Text>
-            </TouchableOpacity>
           </View>
-
-          {/* Submit Button */}
           <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
             <Text style={styles.submitButtonText}>Submit</Text>
           </TouchableOpacity>
@@ -101,3 +72,22 @@ export default function LoginScreen() {
     </ImageBackground>
   );
 }
+
+// Add these styles to your login.styles.ts or include them here
+const styles = StyleSheet.create({
+    backgroundContainer: { flex: 1 },
+    safeArea: { flex: 1 },
+    container: { flex: 1, justifyContent: 'space-between', alignItems: 'center', padding: 20 },
+    logo: { width: 250, height: 250, resizeMode: 'contain', marginTop: 20 },
+    formContainer: { width: '100%', backgroundColor: 'rgba(0,0,0,0.4)', borderRadius: 10, padding: 20 },
+    title: { fontSize: 22, color: '#fff', fontWeight: 'bold', textAlign: 'center', marginBottom: 20 },
+    inputContainer: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#333', borderRadius: 5, paddingHorizontal: 10 },
+    input: { flex: 1, color: '#fff', height: 50 },
+    verifyText: { color: '#7F56D9', fontWeight: 'bold' },
+    orText: { color: '#aaa', textAlign: 'center', marginVertical: 15 },
+    socialButton: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff', padding: 15, borderRadius: 5, marginBottom: 10 },
+    socialIcon: { width: 20, height: 20, marginRight: 15 },
+    socialButtonText: { color: '#000', fontWeight: '600' },
+    submitButton: { width: '100%', backgroundColor: '#7F56D9', padding: 15, borderRadius: 5, alignItems: 'center', marginVertical: 20 },
+    submitButtonText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
+});

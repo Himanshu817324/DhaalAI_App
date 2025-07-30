@@ -86,6 +86,14 @@ android {
         versionName "1.0"
     }
     signingConfigs {
+        release {
+            if (project.hasProperty('MYAPP_UPLOAD_STORE_FILE')) {
+                storeFile file(MYAPP_UPLOAD_STORE_FILE)
+                storePassword MYAPP_UPLOAD_STORE_PASSWORD
+                keyAlias MYAPP_UPLOAD_KEY_ALIAS
+                keyPassword MYAPP_UPLOAD_KEY_PASSWORD
+            }
+        }
         debug {
             storeFile file('debug.keystore')
             storePassword 'android'
@@ -109,13 +117,20 @@ android {
 
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
-    implementation project(':react-native-linear-gradient')
-    implementation project(':react-native-community_blur')
     implementation("com.facebook.react:react-android")
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
     } else {
         implementation jscFlavor
+    }
+}
+
+project.afterEvaluate {
+    tasks.findAll { task ->
+        task.name.startsWith('externalNativeBuild')
+    }.each { task ->
+        task.dependsOn(":react-native-async-storage_async-storage:generateCodegenArtifactsFromSchema")
+        task.dependsOn(":react-native-gesture-handler:generateCodegenArtifactsFromSchema")
     }
 }

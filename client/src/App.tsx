@@ -1,5 +1,7 @@
-import 'react-native-gesture-handler';
+// App.js
+
 import React from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider as ReduxProvider } from 'react-redux';
@@ -8,13 +10,16 @@ import RootNavigator from './navigation/RootNavigator';
 
 const App = () => {
   return (
-    <SafeAreaProvider>
-      <ReduxProvider store={store}>
-        <NavigationContainer>
-          <RootNavigator />
-        </NavigationContainer>
-      </ReduxProvider>
-    </SafeAreaProvider>
+    // This is the correct place for the wrapper
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
+        <ReduxProvider store={store}>
+          <NavigationContainer>
+            <RootNavigator />
+          </NavigationContainer>
+        </ReduxProvider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 };
 

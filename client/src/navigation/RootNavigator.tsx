@@ -1,59 +1,50 @@
-// RootNavigator.tsx
-import React, { useEffect, useState } from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React, { useEffect } from 'react';
 import SplashScreen from '../screens/Splash';
 import OnboardingStack from './onboarding/OnboardingStack';
 import AuthStack from './auth/AuthStack';
 import MainStack from './main/MainStack';
-import type { RootStackParamList } from '../types/navigation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { setInitialState } from '../store/slices/authSlice';
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const RootNavigator = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [initialRoute, setInitialRoute] = useState<keyof RootStackParamList>('Splash');
+  const { hasSeenOnboarding, isLoggedIn } = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-  const checkInitialRoute = async () => {
-    try {
-      const hasSeenOnboarding = await AsyncStorage.getItem('hasSeenOnboarding');
-      const isLoggedIn = await AsyncStorage.getItem('isLoggedIn');
-
-      if (!hasSeenOnboarding) {
-        setInitialRoute('OnboardingStack');
-      } else if (isLoggedIn === 'true') {
-        setInitialRoute('MainStack');
-      } else {
-        setInitialRoute('AuthStack');
+    const checkStatus = async () => {
+      try {
+        const onboardingStatus = await AsyncStorage.getItem('hasSeenOnboarding');
+        const loginStatus = await AsyncStorage.getItem('isLoggedIn');
+        dispatch(setInitialState({
+          hasSeenOnboarding: onboardingStatus === 'true',
+          isLoggedIn: loginStatus === 'true',
+        }));
+      } catch (error) {
+        console.error('Failed to load status from storage', error);
       }
-    } catch (error) {
-      console.error('Error checking onboarding/login status:', error);
-      setInitialRoute('OnboardingStack');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    };
 
-  checkInitialRoute();
-}, []);
+    checkStatus();
+  }, [dispatch]);
 
 
-  if (isLoading) {
-    return <SplashScreen />;
+  if (!hasSeenOnboarding && !isLoggedIn) {
+      return <OnboardingStack />
   }
 
-  return (
-    <Stack.Navigator 
-      initialRouteName={initialRoute}
-      screenOptions={{ headerShown: false }}
-    >
-      <Stack.Screen name="Splash" component={SplashScreen} />
-      <Stack.Screen name="OnboardingStack" component={OnboardingStack} />
-      <Stack.Screen name="AuthStack" component={AuthStack} />
-      <Stack.Screen name="MainStack" component={MainStack} />
-    </Stack.Navigator>
-  );
+  if (hasSeenOnboarding && !isLoggedIn) {
+      return <AuthStack/>
+  }
+
+  if (hasSeenOnboarding && isLoggedIn) {
+      return <MainStack />
+  }
+
+  return <SplashScreen />;
+
 };
 
 export default RootNavigator;

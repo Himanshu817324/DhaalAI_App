@@ -1,6 +1,5 @@
 import React from 'react';
-import { SafeAreaView, Text, View } from 'react-native';
-import styles from '../../../styles/home.styles';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import HomeScr from '../../../components/molecules/tabs/home';
 
 const HomeScreen = () => {
@@ -10,5 +9,12 @@ const HomeScreen = () => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#000',
+  }
+});
 
 export default HomeScreen;

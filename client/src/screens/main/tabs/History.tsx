@@ -1,12 +1,26 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import React from 'react';
+import { Text, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const HistoryScreen = () => {
   return (
-    <View>
-      <Text>HistoryScreen</Text>
-    </View>
-  )
-}
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.text}>History Screen</Text>
+    </SafeAreaView>
+  );
+};
 
-export default HistoryScreen
+const styles = StyleSheet.create({
+  container: {
+    flex: 1, // ✅ Ensures the screen fills the space
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#000',
+  },
+  text: {
+    color: '#fff',
+    fontSize: 20,
+  }
+});
+
+export default HistoryScreen;

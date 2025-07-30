@@ -1,5 +1,6 @@
 // src/constants/iconMap.ts
-const iconMap: Record<string, any> = {
+
+export const iconMap: Record<string, any> = {
   'deepseek.png': require('../assets/icons/home/deepseek.png'),
   'finance.png': require('../assets/icons/home/finance.png'),
   'scam.png': require('../assets/icons/home/scam.png'),
@@ -9,4 +10,9 @@ const iconMap: Record<string, any> = {
   'shield.png': require('../assets/icons/home/shield.png'),
 };
 
-export default iconMap;
+export const tabIconMap: Record<string, any> = {
+  'home': require('../assets/icons/tabs/home.png'),
+  'history': require('../assets/icons/tabs/clock.png'),
+  'share': require('../assets/icons/tabs/share.png'),
+  'setting': require('../assets/icons/tabs/shield.png'),
+};
